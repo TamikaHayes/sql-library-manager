@@ -1,3 +1,10 @@
+const Sequelize = require('sequelize');
+
+const sequelize = new Sequelize({
+  dialect: 'sqlite',
+  storage: 'library.db'
+});
+
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -37,5 +44,15 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+// async IIFE
+(async () => {
+  try {
+    await sequelize.authenticate();
+    console.log('Connection to the database successful!');
+  } catch (error) {
+    console.error('Error connecting to the database: ', error);
+  }
+})();
 
 module.exports = app;
