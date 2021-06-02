@@ -5,16 +5,16 @@ const sequelize = new Sequelize({
   storage: 'library.db'
 });
 
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+const routes = require('./routes/index');
+const books = require('./routes/books');
 
-var app = express();
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -26,8 +26,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/', routes);
+app.use('/books', books);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -47,6 +47,7 @@ app.use(function(err, req, res, next) {
   //handle errors caught by route handlers and render an error page, based on the error status code
   if (err.status === 404) {
       res.status(404).render('page-not-found', { err });
+      err.message = err.message || `It looks like that page doesn't exist. Error status code: ${err.status}`;
   } else {
       const err = new Error();
       err.status = 500;

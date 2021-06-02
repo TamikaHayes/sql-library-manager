@@ -6,13 +6,13 @@ block content
   p.error-p= `${err.message}`
 
   a.home(href=`/`) Return to the Home Page
-  link(rel='stylesheet' href='../public/stylesheets/style.css')
+  //- link(rel='stylesheet' href='../public/stylesheets/style.css')
 
-  div.not-found-stack
-    hr
-    p= `The stack trace below is provided for the benefit of developers who are finding and fixing website bugs.`
-    p= `Each line contains a file path and a line number. Most of these lines will likely reference external source, library or framework files.`
-    p= `A close look at the end of each line will likely reveal one or more files that the developer(s) created.`
-    p= `That file and line are usually a good place to start looking for the current bug that's causing this error.`
-    hr
-    pre #{err.stack}
+  //- div.not-found-stack
+  //-   hr
+  //-   p= `The stack trace below is provided for the benefit of developers who are finding and fixing website bugs.`
+  //-   p= `Each line contains a file path and a line number. Most of these lines will likely reference external source, library or framework files.`
+  //-   p= `A close look at the end of each line will likely reveal one or more files that the developer(s) created.`
+  //-   p= `That file and line are usually a good place to start looking for the current bug that's causing this error.`
+  //-   hr
+  //-   pre #{err.stack}

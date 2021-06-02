@@ -20,9 +20,9 @@ router.get('/', asyncHandler(async (req, res) => {
   const books = await Book.findAll();
   console.log(books);
   //throw new Error;
-  //res.json(books);
-
-  //res.render('index', { /books, title: 'Express' });
+  res.json(books);
+  
+  //res.render('index', { '/books', title: 'Express' });
 }));
 
 
@@ -44,8 +44,8 @@ router.get('/books/:id', function(req, res, next) {
   
    //check to see if requested book page exists
    if (book) {
-     // if true, pass the book data to the 'layout' pug template
-     res.render('layout', { books });
+     // if true, pass the book data to the 'idex' pug template
+     res.render('index', { books });
    } else {
     const err = new Error();
     err.status = 404;
