@@ -40,9 +40,25 @@ app.use(function(err, req, res, next) {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
+
+  if (err) {
+    console.log('Fiddlesticks! Something went wrong.');
+  }
+  //handle errors caught by route handlers
+  if (err.status === 404) {
+      res.status(404).render('page-not-found', { err });
+  } else {
+      const err = new Error();
+      err.status = 500;
+      err.message = err.message || `Oh snap! Looks like something went wrong on the server. Status: ${err.status}`;
+      console.log(err.status, err);
+      console.log(err.message, err);
+      res.status(err.status || 500).render('error', { err });
+  }
+
   // render the error page
-  res.status(err.status || 500); 
-  res.render('error', {err});
+  //res.status(err.status || 500); 
+  //res.render('error', {err});
 });
 
 // async IIFE

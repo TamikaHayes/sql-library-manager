@@ -2,9 +2,9 @@ extends layout
 
 block content
   h1= `Server Error`
-  h2= `Error status code: 500 - Server Error`
-  p.error-p= `It looks like there's an issue with the server.`
-  //- p.error-p= `${err.message}`
+  h2= `Error status code: ${err.status} - Server Error`
+  //- p.error-p= `It looks like there's an issue with the server.`
+  p.error-p= `${err.message}`
 
   a.home(href=`/`) Return to the Home Page
 

@@ -15,6 +15,16 @@ function asyncHandler(cb){
   }
 }
 
+/* GET home page. */
+router.get('/', asyncHandler(async (req, res) => {
+  const books = await Book.findAll();
+  //console.log(books);
+  throw new Error;
+  //res.json(books);
+
+  //res.render('index', { /books, title: 'Express' });
+}));
+
 
 /*GET generated error route - create and throw 500 error*/
 router.get('/error', (req, res, next) => {
@@ -22,9 +32,8 @@ router.get('/error', (req, res, next) => {
   const err = new Error();
   err.status = 500;
   err.message = `Uh-oh. Looks like trouble with the server. Status: ${err.status}`;
-  console.log(err.status);
-  console.log(err.message);
-  //res.render('error', { err } );
+  //console.log(err.status);
+  //console.log(err.message);
   throw err;
 });
 
@@ -46,14 +55,6 @@ router.get('/error', (req, res, next) => {
 //   }
 // });
 
-/* GET home page. */
-router.get('/', asyncHandler(async (req, res) => {
-  const books = await Book.findAll();
-  console.log(books);
-  throw new Error;
-  //res.json(books);
 
-  //res.render('index', { /books, title: 'Express' });
-}));
 
 module.exports = router;
