@@ -19,7 +19,7 @@ function asyncHandler(cb){
 router.get('/', asyncHandler(async (req, res) => {
   const books = await Book.findAll();
   console.log(books);
-  throw new Error;
+  //throw new Error;
   //res.json(books);
 
   //res.render('index', { /books, title: 'Express' });
@@ -37,23 +37,23 @@ router.get('/error', (req, res, next) => {
   throw err;
 });
 
-/* GET project pages dynamically, based on id property. */
-// router.get('/projects/:id', function(req, res, next) {
-//   const projectId = req.params.id;
-//   const project = projects.find( ({ id }) => id === +projectId );
+/* GET book pages dynamically, based on id property. */
+router.get('/books/:id', function(req, res, next) {
+   const bookId = req.params.id;
+   const books = books.find( ({ id }) => id === +bookId );
   
-//   //check to see if requested project page exists
-//   if (project) {
-//     // if true, pass the project data to the 'project' pug template
-//     res.render('project', { project });
-//   } else {
-//     const err = new Error();
-//     err.status = 404;
-//     err.message = `Looks like the page you requested doesn't exist. Status: ${err.status}`;
-//     next(err);
+   //check to see if requested book page exists
+   if (book) {
+     // if true, pass the book data to the 'layout' pug template
+     res.render('layout', { books });
+   } else {
+    const err = new Error();
+    err.status = 404;
+    err.message = `Looks like the page you requested doesn't exist. Status: ${err.status}`;
+    next(err);
     
-//   }
-// });
+   }
+});
 
 
 
