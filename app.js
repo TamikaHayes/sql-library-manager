@@ -29,37 +29,40 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/books', books);
 
-// catch 404 and forward to error handler
+/* ERROR HANDLERS */
+
+// 404 handler to catch undefined or nonexistent route requests, and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
 });
 
-// error handler
-app.use(function(err, req, res, next) {
+// Global error handler
+app.use((err, req, res, next) => {
   // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+  //res.locals.message = err.message;
+  //res.locals.error = req.app.get('env') === 'development' ? err : {};
 
 
   // if (err) {
   //   console.log('Fiddlesticks! Something went wrong.');
   // }
   // //handle errors caught by route handlers and render an error page, based on the error status code
-  // if (err.status === 404) {
-  //     res.status(404).render('page-not-found', { err });
-  //     err.message = err.message || `It looks like that page doesn't exist. Error status code: ${err.status}`;
-  // } else {
-  //     const err = new Error();
-  //     err.status = 500;
-  //     err.message = err.message || `Sorry! There was an unexpected error on the server. Error status code: ${err.status}`;
-  //     console.log(err.status, err);
-  //     console.log(err.message, err);
-  //     res.status(err.status || 500).render('error', { err });
-  // }
+  if (err.status === 404) {
+      res.status(404).render('books/page-not-found', { err });
+      err.message = err.message || `It looks like that page doesn't exist. Error status code: ${err.status}`;
+  } else {
+      const err = new Error();
+      err.status = 500;
+      err.message = err.message || `Sorry! There was an unexpected error on the server. Here's the error status code: ${err.status}`;
+      console.log(err.status, err);
+      console.log(err.message, err);
+      console.log("GLOBAL error handler called");
+      res.status(err.status || 500).render('books/error', { err });
+  }
 
   // render the error page
-  res.status(err.status || 500); 
-  res.render('books/error', {err});
+  //res.status(err.status || 500); 
+  //res.render('books/error', {err});
 });
 
 // async IIFE
