@@ -4,6 +4,12 @@ block content
   h1 New Book
 
   form(action="/books", method="post")
+    if(errors)
+        h2.errors Oops an error occurred!
+        ul.errors
+          each error in errors
+            li
+              =error.message
     p
       label(for='title') Title
       input#title(name='title' type='text')
@@ -18,12 +24,6 @@ block content
       input#year(name='year' type='text')
     p
 
-      if(errors)
-        h2.errors Oops an error occurred!
-        ul.errors
-          each error in errors
-            li
-              =error.message
       input(type='submit' value='Create New Book')
     p
     
