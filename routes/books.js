@@ -46,10 +46,16 @@ router.post('/', asyncHandler(async (req, res) => {
   // }
 }));
 
+// /* Edit a book's details in the 'Update Book' form. */
+// router.get("/:id/", asyncHandler(async(req, res) => {
+//   const book = await Book.findByPk(req.params.id);
+//   res.render("books/" + book.id, { book, title: "Update Book" });
+// }));
+
 /* GET individual book. */
 router.get("/:id", asyncHandler(async (req, res) => {
   const book = await Book.findByPk(req.params.id);
-  res.render("books/update-book", { book, title: book.title });
+  res.render("books/update-book", { book, title: "Update Book" });
 
   // const book = await Book.findByPk(req.params.id);
   // if(book) {
@@ -58,5 +64,18 @@ router.get("/:id", asyncHandler(async (req, res) => {
   //   res.sendStatus(404);
   // }
 })); 
+
+/* Update a book. */
+router.post("/:id/", asyncHandler(async(req, res) => {
+  const book = await Book.findByPk(req.params.id);
+  await book.update(req.body);
+  res.redirect("/")
+
+  // if(article) {
+  //   res.render("articles/edit", { article, title: "Edit Article" });      
+  // } else {
+  //   res.sendStatus(404);
+  // }
+}));
 
 module.exports = router;
