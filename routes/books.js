@@ -29,18 +29,21 @@ router.get('/new', (req, res) => {
 
 /* POST newly created book entries to database. */
 router.post('/', asyncHandler(async (req, res) => {
-  let book;
-  try {
-    book = await Book.create(req.body);
-    res.redirect("/books/" + book.id);
-  } catch (error) {
-    if(error.name === "SequelizeValidationError") {
-      book = await Book.build(req.body);
-      res.render("books/new-book", { book, errors: error.errors, title: "New Book" })
-    } else {
-      throw error;
-    }  
-  }
+  const book = await Book.create(req.body);
+  res.redirect("/books/" + book.id);
+
+  // let book;
+  // try {
+  //   book = await Book.create(req.body);
+  //   res.redirect("/books/" + book.id);
+  // } catch (error) {
+  //   if(error.name === "SequelizeValidationError") {
+  //     book = await Book.build(req.body);
+  //     res.render("books/new-book", { book, errors: error.errors, title: "New Book" })
+  //   } else {
+  //     throw error;
+  //   }  
+  // }
 }));
 
 
