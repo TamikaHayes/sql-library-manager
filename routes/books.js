@@ -82,12 +82,13 @@ router.post("/:id/", asyncHandler(async(req, res) => {
 router.post("/:id/delete", asyncHandler(async (req, res) => {
   const book = await Book.findByPk(req.params.id);
   if (book) {
-    res.render("books/update-book", { book, title: "Update Book" });
+    //res.render("books/update-book", { book, title: "Update Book" });
     await book.destroy();
+    res.redirect("/");
   } else {
     throw error;
   }
-    res.redirect("/");
+    
 }));
 
 module.exports = router;
