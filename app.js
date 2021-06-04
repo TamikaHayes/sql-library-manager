@@ -33,7 +33,10 @@ app.use('/books', books);
 
 // 404 handler to catch undefined or nonexistent route requests, and forward to error handler
 app.use(function(req, res, next) {
-  next(createError(404));
+  const err = new Error();
+  err.status = 404;
+  next(err);
+  //next(createError(404));
 });
 
 // Global error handler
@@ -49,7 +52,7 @@ app.use((err, req, res, next) => {
   // //handle errors caught by route handlers and render an error page, based on the error status code
   if (err.status === 404) {
       res.status(404).render('books/page-not-found', { err });
-      err.message = err.message || `It looks like that page doesn't exist. Error status code: ${err.status}`;
+      err.message = err.message || `It looks like that page doesn't exist. Here's the error status code: ${err.status}`;
   } else {
       const err = new Error();
       err.status = 500;
