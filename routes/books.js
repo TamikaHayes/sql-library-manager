@@ -1,3 +1,13 @@
+/**
+ * Treehouse FSJS Techdegree
+ * Project 8 - SQL Library Manager
+ * Tamika Hayes
+ * June 3, 2021
+ * routes/books.js
+ */
+
+
+
 const express = require('express');
 const router = express.Router();
 const Book = require('../models').Book;
@@ -49,8 +59,6 @@ router.get("/:id", asyncHandler(async (req, res) => {
   if(book) {
     res.render("books/update-book", { book, title: "Update Book" });  
   } else {
-    // const error = new Error();
-    // error.status = 404;
     throw error;
   }
 })); 
@@ -82,7 +90,6 @@ router.post("/:id/", asyncHandler(async(req, res) => {
 router.post("/:id/delete", asyncHandler(async (req, res) => {
   const book = await Book.findByPk(req.params.id);
   if (book) {
-    //res.render("books/update-book", { book, title: "Update Book" });
     await book.destroy();
     res.redirect("/");
   } else {

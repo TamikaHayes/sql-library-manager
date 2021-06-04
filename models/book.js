@@ -32,11 +32,11 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false, // disallow null
       validate: {
         notNull: {
-          msg: '"Author" field is required. Please provide a value for "Author"',
+          msg: '"Author" field is required. Please provide a value for "Author."',
         },
         notEmpty: {
           // custom error message
-          msg: '"Author" field is required. Please provide a value for "Author"',
+          msg: '"Author" field is required. Please provide a value for "Author."',
         },
       },
     },  

@@ -1,3 +1,11 @@
+/**
+ * Treehouse FSJS Techdegree
+ * Project 8 - SQL Library Manager
+ * Tamika Hayes
+ * June 3, 2021
+ * app.js
+ */
+
 const Sequelize = require('sequelize');
 
 const sequelize = new Sequelize({
@@ -35,21 +43,13 @@ app.use('/books', books);
 app.use(function(req, res, next) {
   const err = new Error();
   err.status = 404;
+  err.message = err.message || "Our apologies! We couldn't find the page you were looking for.";
   next(err);
-  //next(createError(404));
 });
 
 // Global error handler
 app.use((err, req, res, next) => {
-  // set locals, only providing error in development
-  //res.locals.message = err.message;
-  //res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-
-  // if (err) {
-  //   console.log('Fiddlesticks! Something went wrong.');
-  // }
-  // //handle errors caught by route handlers and render an error page, based on the error status code
+  
   if (err.status === 404) {
       res.status(404).render('books/page-not-found', { err });
       err.message = err.message || `It looks like that page doesn't exist. Here's the error status code: ${err.status}`;
@@ -63,9 +63,6 @@ app.use((err, req, res, next) => {
       res.status(err.status || 500).render('books/error', { err });
   }
 
-  // render the error page
-  //res.status(err.status || 500); 
-  //res.render('books/error', {err});
 });
 
 // async IIFE
