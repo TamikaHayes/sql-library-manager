@@ -49,6 +49,8 @@ router.get("/:id", asyncHandler(async (req, res) => {
   if(book) {
     res.render("books/update-book", { book, title: book.title });  
   } else {
+    const error = new Error();
+    error.status = 404;
     throw error;
   }
 })); 
